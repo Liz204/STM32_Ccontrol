@@ -10,16 +10,16 @@ int main(void)
 	/**********CALIBRATION**********/
 	ADC1 ->CR &= ~(ADC_CR_ADEN); //Deshabilitar registro
 	ADC1 ->CR |= ADC_CR_ADCAL;  //Calibra registro
-	while(ADC1 ->CR &= ADC_CR_ADCAL ==1);	 //Checa que esté calibrado el registro
+	while(ADC1 ->CR &= ADC_CR_ADCAL ==1);	 //Checa que estÃ© calibrado el registro
 	ADC1 ->ISR |=ADC_ISR_ADRDY ;
-	while(ADC1 ->ISR &= ADC_ISR_ADRDY ==0); //Tiene que ser ADC1 porq hay varios relojes en la página 97 del manual dice
-	ADC1 ->CFGR1 |=ADC_CFGR1_AUTOFF; //(1<<15) Habilitación del bajo consumo
+	while(ADC1 ->ISR &= ADC_ISR_ADRDY ==0); //Tiene que ser ADC1 porq hay varios relojes en la pÃ¡gina 97 del manual dice
+	ADC1 ->CFGR1 |=ADC_CFGR1_AUTOFF; //(1<<15) HabilitaciÃ³n del bajo consumo
 	ADC1 ->CHSELR |= ADC_CHSELR_CHSEL1; //(1<<1) Establecer canal de entrada
 	ADC1 ->SMPR |= 0X7; //0b111, 7 reduce la velocidad de reloj
 	unsigned int analogRead; //Para que tome puros positivo
 	while(1)
     {
-		ADC1 ->CR |= ADC_CR_ADSTART; //INICIA LA CONVERSIÓN
+		ADC1 ->CR |= ADC_CR_ADSTART; //INICIA LA CONVERSIÃ“N
 		while (ADC1 ->ISR &=  (ADC_ISR_EOC)==0);//END OF CONVERSION FLAG
 		analogRead=ADC1->DR;  //Guardar lectura de datos
 
